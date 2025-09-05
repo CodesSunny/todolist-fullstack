@@ -1,6 +1,6 @@
 const express = require('express');
 const server = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const cors = require('cors');
 server.use(cors());   //allow cross plateform 
 const fs = require('fs');
