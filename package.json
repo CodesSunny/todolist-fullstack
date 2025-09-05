@@ -4,6 +4,7 @@
   "description": "todowithexpress",
   "main": "server.js",
   "scripts": {
+    "start" : "node express.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
