@@ -10,7 +10,7 @@ let editId = null;    //track task being edited
 // fetch db and display task on get method
 const displayTask=async ()=>{
     try{
-        const response = await fetch('http://localhost:3000');
+        const response = await fetch(' https://todolist-fullstack-jkm4.onrender.com');
         
         if(!response.ok) {
             throw new Error("response not ok" + response.status)
@@ -59,7 +59,7 @@ const saveTask=async()=>{
         // edit task : while edit mode 
    if(isEdit){
     //change task in input field and send to server
-        const response = await fetch (`http://localhost:3000/${editId}`, {
+        const response = await fetch (` https://todolist-fullstack-jkm4.onrender.com/${editId}`, {
             method: 'PATCH',
             headers:{'Content-Type' : 'application/json'},
             body: JSON.stringify({editedTask :inputValue})
@@ -82,7 +82,7 @@ const saveTask=async()=>{
    }
 
    //2 if not duplicate add new task to db
-    const response = await fetch ('http://localhost:3000', {
+    const response = await fetch (' https://todolist-fullstack-jkm4.onrender.com', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
@@ -107,7 +107,7 @@ const saveTask=async()=>{
 
 // delete task 
 const deleteTask =async (taskId)=>{
-    const response = await fetch (`http://localhost:3000/${taskId}`, {
+    const response = await fetch (` https://todolist-fullstack-jkm4.onrender.com/${taskId}`, {
         method: 'DELETE'
     })
 
