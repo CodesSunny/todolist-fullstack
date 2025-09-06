@@ -70,6 +70,9 @@ const saveTask=async()=>{
     }
 
      const data = await response.json();
+     //reset btn text after edit done
+     isEdit =   false;
+     checkEdit();
 
    }else{
     // add task : while not edit mode
