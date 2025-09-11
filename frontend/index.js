@@ -46,6 +46,22 @@ const displayTask=async ()=>{
 displayTask();  //initially display on page load
 
 
+
+const checkDuplicate =()=>{
+    let inputValue = todoInput.value.trim();
+
+        //1 check duplicate task before adding
+    for(let item of storedTask){
+        if(item.task.toLowerCase() === inputValue.toLowerCase()) {
+            alert("task already present");
+            return true;    //duplicated indicated
+        } 
+   }
+   
+   return false;     //no duplicate
+}
+
+
 // add new data and send to db
 const saveTask=async()=>{
    let inputValue = todoInput.value.trim();
@@ -54,6 +70,9 @@ const saveTask=async()=>{
     alert("write a task");
     return;
    }
+
+   //1 check duplicate task before adding
+   if(checkDuplicate ()) return;      //exit if duplicate found
 
    try {
         // edit task : while edit mode 
@@ -70,21 +89,14 @@ const saveTask=async()=>{
     }
 
      const data = await response.json();
+
      //reset btn text after edit done
      isEdit =   false;
+
      checkEdit();
 
    }else{
     // add task : while not edit mode
-    //1 check duplicate task before adding
-    for(let item of storedTask){
-        if(item.task.toLowerCase() === inputValue.toLowerCase()) {
-            alert("task already present");
-            return;
-        } 
-   }
-
-   //2 if not duplicate add new task to db
     const response = await fetch (' https://todolist-fullstack-jkm4.onrender.com', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
