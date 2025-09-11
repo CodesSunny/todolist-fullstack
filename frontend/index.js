@@ -74,6 +74,9 @@ const saveTask=async()=>{
    //1 check duplicate task before adding
    if(checkDuplicate ()) return;      //exit if duplicate found
 
+     //disable btn on request
+    taskBtn.disabled = true;
+
    try {
         // edit task : while edit mode 
    if(isEdit){
@@ -96,6 +99,7 @@ const saveTask=async()=>{
      checkEdit();
 
    }else{
+
     // add task : while not edit mode
     const response = await fetch (' https://todolist-fullstack-jkm4.onrender.com', {
         method: 'POST',
@@ -104,19 +108,26 @@ const saveTask=async()=>{
                                 newTask : inputValue
                             })
         })
-        if(!response.ok ){
-        throw new Error("error in fetching post response ");
-    }
+        if(!response.ok ) throw new Error("error in fetching post response ");
+    
         const data = await response.json();
+
+        
     }
+
+    //update ui
+    await displayTask();
+    todoInput.value = "";
     
    } catch (err) {
     console.log( err.message );
     
+   }finally{
+    // re-enablebtn after everything (success or error)
+        taskBtn.disabled = false;
    }
    
-   await displayTask();
-   todoInput.value = "";
+
 }
 
 
