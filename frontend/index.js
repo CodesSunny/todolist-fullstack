@@ -2,6 +2,7 @@ const form = document.querySelector("form");
 const todoInput = document.getElementById('todo-input');
 const tbody= document.querySelector('tbody');
 const taskBtn = document.getElementById("task-btn");
+const loader = document.getElementById('loader');
 let storedTask = [];  //initialise empty list
 let isEdit = false;    //control edit mode
 let editId = null;    //track task being edited
@@ -77,6 +78,9 @@ const saveTask=async()=>{
      //disable btn on request
     taskBtn.disabled = true;
 
+    // show loader
+    loader.classList.remove('hidden');
+
    try {
         // edit task : while edit mode 
    if(isEdit){
@@ -117,14 +121,19 @@ const saveTask=async()=>{
 
     //update ui
     await displayTask();
-    todoInput.value = "";
+
     
    } catch (err) {
     console.log( err.message );
     
    }finally{
+     // hide loader and reset UI
+        loader.classList.add('hidden');
+
     // re-enablebtn after everything (success or error)
         taskBtn.disabled = false;
+
+        todoInput.value = "";
    }
    
 
